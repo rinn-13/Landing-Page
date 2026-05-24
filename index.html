@@ -1581,7 +1581,7 @@ footer{
         <img src="gate.jpg" class="gallery-img" alt="Gate of Babylon">
         <div class="gallery-overlay"><span class="gallery-overlay-text">Gate of Babylon — The Golden Barrage</span></div>
       </div>
-      <div class="gallery-item reveal reveal-delay-3" onclick="openGalleryModal('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/69dfec16-f239-47d3-a51b-c7f599981eb8/dgqy9e1-8d3c20be-48c7-4fa6-a98c-f5875c55f1fb.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzY5ZGZlYzE2LWYyMzktNDdkMy1hNTFiLWM3ZjU5OTk4MWViOFwvZGdxeTllMS04ZDNjMjBiZS00OGM3LTRmYTYtYTk4Yy1mNTg3NWM1NWYxZmIuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0._L81pWQqRVqBUHSlzzqbl01tdHzpJu5tdWHCmJsGmZQ','Gilgamesh and Enkidu — the King's only equal')">
+      <div class="gallery-item reveal reveal-delay-3" onclick="openGalleryModal('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/69dfec16-f239-47d3-a51b-c7f599981eb8/dgqy9e1-8d3c20be-48c7-4fa6-a98c-f5875c55f1fb.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzY5ZGZlYzE2LWYyMzktNDdkMy1hNTFiLWM3ZjU5OTk4MWViOFwvZGdxeTllMS04ZDNjMjBiZS00OGM3LTRmYTYtYTk4Yy1mNTg3NWM1NWYxZmIuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0._L81pWQqRVqBUHSlzzqbl01tdHzpJu5tdWHCmJsGmZQ','Gilgamesh and Enkidu — the Kings only equal')">
         <img src="enkidu.jpg" class="gallery-img" alt="Gilgamesh Enkidu">
         <div class="gallery-overlay"><span class="gallery-overlay-text">Enkidu — The King's Only Equal</span></div>
       </div>
@@ -1872,19 +1872,34 @@ function closeMobileMenu(){
 });
 
 // ─── MODALS ───
-function openModal(id){ document.getElementById(id).classList.add('open'); document.body.style.overflow='hidden'; }
-function closeModal(id){ document.getElementById(id).classList.remove('open'); document.body.style.overflow=''; }
+function openModal(id){
+  document.getElementById(id).classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+window.closeModal = function(id){
+  document.getElementById(id).classList.remove('open');
+  document.body.style.overflow='';
+}
 
 document.querySelectorAll('.modal').forEach(m => {
-  m.addEventListener('click', e => { if(e.target === m) closeModal(m.id); });
+  m.addEventListener('click', e => {
+    if(e.target === m) closeModal(m.id);
+  });
 });
 
 // ─── GALLERY MODAL ───
-function openGalleryModal(src, caption){
+window.openGalleryModal = function(src, caption){
   document.getElementById('galleryModalImg').src = src;
   document.getElementById('galleryModalCaption').textContent = caption;
   openModal('galleryModal');
 }
+
+// ─── BACK TO TOP ───
+document.getElementById('backTop')
+  .addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior:'smooth' });
+});
 
 // ─── BACK TO TOP ───
 document.getElementById('backTop').addEventListener('click', () => window.scrollTo({ top: 0, behavior:'smooth' }));
